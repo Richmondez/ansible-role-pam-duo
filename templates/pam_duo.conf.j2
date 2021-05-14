@@ -25,3 +25,7 @@ autopush = {% if pam_duo_auto_push %}yes{% else %}no{% endif %}
 
 ; Only users in these groups will be prompted for 2FA
 groups = {% for arg1 in pam_duo_groups %}{{arg1}}{% if not loop.last %},{% endif %}{% endfor %}
+
+{% if pam_duo_proxy|length %}
+http_proxy = {{pam_duo_proxy}}
+{% endif %}

@@ -8,3 +8,4 @@ pam_duo_push_info: false
 pam_duo_auto_push: false
 
 pam_duo_groups: []
+pam_duo_proxy: ''
