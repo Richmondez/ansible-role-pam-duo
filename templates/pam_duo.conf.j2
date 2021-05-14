@@ -1,4 +1,6 @@
-{{ ansible_managed | comment }}
+;
+; Managed by Ansible
+;
 [duo]
 ; Duo integration key
 ikey = {{pam_duo_ikey}}
@@ -13,13 +15,13 @@ host = {{pam_duo_host}}
 ; this mode will allow login without 2FA.
 ; `failmode = secure` This mode will deny access in the above cases. Misconfigurations with this setting
 ; enabled may result in you being locked out of your system.
-failmode = {% if pam_duo_secure_mode %} secure {% else %} safe {% endif %}
+failmode = {% if pam_duo_secure_mode %}secure{% else %}safe{% endif %}
 
 ; Send command for Duo Push authentication
-pushinfo = {% if pam_duo_push_info %} yes {% else %} no {% endif %}
+pushinfo = {% if pam_duo_push_info %}yes{% else %}no{% endif %}
 
 ; Automatically send push to users device
-autopush = {% if pam_duo_auto_push %} yes {% else %} no {% endif %}
+autopush = {% if pam_duo_auto_push %}yes{% else %}no{% endif %}
 
 ; Only users in these groups will be prompted for 2FA
-groups = {% for arg1 in pam_duo_groups %}  {{arg1}} {% if not loop.last %}, {% endif %} {% endfor %}
+groups = {% for arg1 in pam_duo_groups %}{{arg1}}{% if not loop.last %},{% endif %}{% endfor %}
