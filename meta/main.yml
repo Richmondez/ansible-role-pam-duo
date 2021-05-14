@@ -1,0 +1,21 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: pam-duo
+  author: Aidan Richmond
+  description: MFA configuration using PAM and Duo.
+  company: "University of Leeds"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+  galaxy_tags:
+    - rhel
+    - mfa
+    - duo
+
+allow_duplicates: true

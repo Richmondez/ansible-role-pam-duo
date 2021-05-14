@@ -1,0 +1,29 @@
+---
+- name: Install the 'duo_unix' package
+  package: name=duo_unix state=present
+
+- name: Copy duo config into place.
+  template:
+    src: pam_duo.conf.j2
+    dest: /etc/duo/pam_duo.conf
+    owner: root
+    group: root
+    mode: 0744
+
+- name: Update PAM password-auth
+  lineinfile:
+    dest:  /etc/pam.d/password-auth
+    insertafter: '^auth(\s*)sufficient(\s*)pam_sss\.so forward_pass'
+    line: 'auth\1sufficient\2pam_duo.so'
+
+- name: Update PAM password-auth
+  lineinfile:
+    dest:  /etc/pam.d/password-auth
+    replace: '^auth(\s*)sufficient(\s*)pam_sss\.so forward_pass'
+    line: 'auth\1requisite \2pam_duo.so'
+
+- name: Update PAM system-auth
+  lineinfile:
+    dest:  /etc/pam.d/system-auth
+    replace: '^auth(\s*)sufficient(\s*)pam_unix.so nullok try_first_pass'
+    line: 'auth\1requisite \2pam_unix.so nullok try_first_pass'
