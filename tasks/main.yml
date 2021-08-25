@@ -9,33 +9,3 @@
     owner: root
     group: root
     mode: 0600
-
-- name: Update PAM password-auth
-  lineinfile:
-    dest:  /etc/pam.d/password-auth
-    regexp: '^auth(\s*)\[default=1 ignore=ignore success=ok\](\s*)pam_usertype\.so isregular'
-    line: 'auth\1[default=2 ignore=ignore success=ok]\2pam_usertype.so isregular'
-    backrefs: yes
-
-- name: Update PAM password-auth
-  lineinfile:
-    dest:  /etc/pam.d/password-auth
-    insertafter: '^auth(\s*)sufficient(\s*)pam_sss\.so forward_pass'
-    line: 'auth      sufficient      pam_duo.so'
-    firstmatch: yes
-
-- name: Update PAM password-auth
-  lineinfile:
-    dest:  /etc/pam.d/password-auth
-    regexp: '^auth(\s*)sufficient(\s*)pam_sss\.so forward_pass'
-    line: 'auth\1requisite \2pam_sss.so forward_pass'
-    firstmatch: yes
-    backrefs: yes
-
-- name: Update PAM system-auth
-  lineinfile:
-    dest:  /etc/pam.d/system-auth
-    regexp: '^auth(\s*)sufficient(\s*)pam_unix.so nullok try_first_pass'
-    line: 'auth\1requisite \2pam_unix.so nullok try_first_pass'
-    firstmatch: yes
-    backrefs: yes
