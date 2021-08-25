@@ -13,6 +13,13 @@
 - name: Update PAM password-auth
   lineinfile:
     dest:  /etc/pam.d/password-auth
+    regexp: '^auth(\s*)\[default=1 ignore=ignore success=ok\](\s*)pam_usertype\.so isregular'
+    line: 'auth\1[default=2 ignore=ignore success=ok]\2pam_usertype.so isregular'
+    backrefs: yes
+
+- name: Update PAM password-auth
+  lineinfile:
+    dest:  /etc/pam.d/password-auth
     insertafter: '^auth(\s*)sufficient(\s*)pam_sss\.so forward_pass'
     line: 'auth      sufficient      pam_duo.so'
     firstmatch: yes
